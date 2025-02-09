@@ -21,7 +21,7 @@ function CardsTitle() {
       {cards.map((item, ind) => {
         return (
           <div key={ind}>
-            <div className="w-64 relative p-6 cursor-pointer bg-white hover:shadow-lg rounded-2xl">
+            <div className="w-64 h-[450px] relative p-6 cursor-pointer bg-white hover:shadow-lg rounded-2xl">
                 <button className="absolute right-3 top-1"><LikeCard/></button>
               <img className="w-60" src={item.image} alt="" />
               <h2 className="my-2 cursor-pointer">{item.name}</h2>
