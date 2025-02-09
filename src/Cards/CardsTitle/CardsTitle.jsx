@@ -24,13 +24,13 @@ function CardsTitle() {
             <div className="w-64 relative p-6 cursor-pointer bg-white hover:shadow-lg rounded-2xl">
                 <button className="absolute right-3 top-1"><LikeCard/></button>
               <img className="w-60" src={item.image} alt="" />
-              <h2 className="my-2 cursor-pointer">Telefxdhfghkjlougjyu</h2>
+              <h2 className="my-2 cursor-pointer">{item.name}</h2>
               <button className="bg-slate-200 cursor-pointer my-8 p-1 px-2 text-sm rounded-full font-medium">
-                565676 somdan / 24 oy
+                {item.axiom_monthly_price}
               </button>
               <div className="flex items-center justify-between">
                 <p className="cursor-pointer">
-                  <span className="font-bold text-lg">2425.3683</span> som
+                  <span className="font-bold text-lg">{item.sale_price}</span> som
                 </p>
                 <div className="border-2 cursor-pointer border-amber-500 p-1 rounded-xl">
                   <SavatKorzina />
