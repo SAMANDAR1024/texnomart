@@ -1,17 +1,14 @@
-import { useState } from "react";
 import Likes from "../../assets/Likes";
 import LikesRed from "../../assets/LikeRed";
+import useMyStore from "../../LikeMyStore"; 
 
-function LikeCard() {
-  const [like, setLike] = useState(false);
+function LikeCard({ item }) {
+  const { likedItems, toggleLike } = useMyStore(); 
+  const isLiked = likedItems.some((liked) => liked.id === item.id); 
+
   return (
-    <button
-      onClick={() => {
-        setLike(!like);
-      }}
-      className="cursor-pointer"
-    >
-      {like ? <LikesRed /> : <Likes />}
+    <button onClick={() => toggleLike(item)} className="cursor-pointer">
+      {isLiked ? <LikesRed /> : <Likes />}
     </button>
   );
 }
