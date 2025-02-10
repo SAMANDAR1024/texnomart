@@ -4,7 +4,7 @@ import NavbarBottom from "./BottomHome/Bottom";
 
 function NavbarHome() {
   return (
-    <div>
+    <div >
       <NavbarTop />
       <NavbatCenter />
       <NavbarBottom />
