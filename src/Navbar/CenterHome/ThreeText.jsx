@@ -1,10 +1,12 @@
 import UserIcon from "../../assets/User";
-import Like from "./Likes/Likes";
 import useMyStore from "../../My_store";
+import Like from "./Likes/Likes";
+// import useMyStore from "../../My_store";
 import Modal from "./Modal/Modal";
 
 function ThreeText() {
-  const cartLength = useMyStore((state) => state.cart.length);
+  const { savatcha } = useMyStore();
+  // const cartLength = useMyStore((state) => state.cart.length);
   return (
     <div className="flex cursor-pointer items-center gap-15">
       <div className="flex flex-col items-center">
@@ -14,12 +16,10 @@ function ThreeText() {
       <Like />
       <div className="relative flex flex-col items-center">
         <Modal />
-        {cartLength > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-            {cartLength}
-          </span>
-        )}
         <p className="text-xl">Savat</p>
+        <button className="bg-red-500 px-2 text-white text-sm rounded-full  absolute top-[-10px] right-0 ">
+          {savatcha.length}
+        </button>
       </div>
     </div>
   );

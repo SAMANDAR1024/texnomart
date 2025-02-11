@@ -1,89 +1,143 @@
-
 import React, { useState } from "react";
 import Savat from "../../../assets/Savat";
-import useMyStore from "../../../My_store"; 
+import useMyStore from "../../../My_store";
 
 function Modal() {
   const [modal, setModal] = useState(false);
-  const cart = useMyStore((state) => state.cart); 
-  const removeFromCart = useMyStore((state) => state.removeFromCart);
-  const increaseQuantity = useMyStore((state) => state.increaseQuantity);
-  const decreaseQuantity = useMyStore((state) => state.decreaseQuantity);
+  const { savatcha } = useMyStore();
 
+
+
+  const addCart = (item) => {
+    const topish = savatcha.find((prod) => prod.id === item.id);
+
+    if (topish) {
+      const qoshishSavatcha = savatcha.map((prod) =>
+        prod.id === item.id ? { ...prod, soni: prod.soni + 1 } : prod
+      );
+      useMyStore.setState({
+        savatcha: qoshishSavatcha,
+      });
+    } else {
+      const newProduct = {
+        ...item,
+        soni: 1,
+      };
+      useMyStore.setState({
+        savatcha: [...savatcha, newProduct],
+      });
+    }
+  };
+
+
+const handleDel= (id)=>{
+  const del = savatcha.filter(item=>item.id!== id)
+  useMyStore.setState({
+    savatcha:del
+  })
+}
+
+
+  const minus = (item) => {
+    if (item.soni > 1) {
+      const update = savatcha.map((i) =>
+        i.id === item.id ? { ...i, soni: i.soni - 1 } : i
+      );
+      useMyStore.setState({
+        savatcha: update,
+      });
+    }
+  };
+  const plus = (item) => {
+    const update = savatcha.map((i) =>
+      i.id === item.id ? { ...i, soni: i.soni + 1 } : i
+    );
+
+    useMyStore.setState({
+      savatcha: update,
+    });
+  };
+  const pricee = savatcha.reduce((avv,hoz)=>avv+hoz.sale_price*hoz.soni,0)
+  console.log(savatcha);
+  
   return (
-    <div className="flex flex-col items-center justify-center ">
+    <div className="relative">
       <button onClick={() => setModal(true)}>
         <Savat />
       </button>
       {modal && (
-        <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/90">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[1300px] top-0">
-            <div className="flex items-center justify-between">
-              <h2 className="text-4xl font-bold">Savatcha</h2>
-              <button
-                onClick={() => setModal(false)}
-                className="cursor-pointer text-4xl"
-              >
+        <div className="fixed inset-0 z-20 bg-black/90 flex items-center justify-center">
+          <div className="bg-white overflow-auto p-6 rounded-lg h-[600px] w-[1100px] ">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold">Savatcha</h2>
+              <button onClick={() => setModal(false)} className="text-6xl">
                 ×
               </button>
             </div>
-            <div className="flex items-center my-5 justify-around gap-5">
-              <div className="w-[70%]">
-                {cart.length === 0 ? (
-                  <p className="text-center text-lg">Savatcha bo‘sh</p>
-                ) : (
-                  cart.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between border-b py-4"
-                    >
-                      <img src={item.image} alt={item.name} className="w-20 h-20 object-cover" />
-                      <p className="w-64">{item.name}</p>
-                      <div className="flex items-center gap-3 border px-3 py-1 rounded-lg">
-                        <button onClick={() => decreaseQuantity(item.id)} className="text-xl">
-                          -
-                        </button>
-                        <p>{item.quantity}</p>
-                        <button onClick={() => increaseQuantity(item.id)} className="text-xl">
-                          +
-                        </button>
+
+            {savatcha.length > 0 ? (
+              <div className="flex  gap-6 my-10">
+                <div>
+                  {savatcha.map((item) => {
+                    console.log(item);
+
+                    return (
+                      <div className="flex  items-center gap-5 justify-between">
+                        <div className="flex items-center gap-10">
+                          <img width={100} src={item.image} alt="" />
+                          <p className="w-60">{item.name}</p>
+                          <div className="flex gap-5 bg-slate-200 rounded-xl p-2">
+                            <button
+                              onClick={() => {
+                                minus(item);
+                              }}
+                            >
+                              -
+                            </button>
+                            <p>{item.soni}</p>
+                            <button
+                              onClick={() => {
+                                plus(item);
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                          <p>{item.sale_price}</p>
+                          <div className="text-red-500">
+                            <p onClick={()=>{
+                              handleDel(item.id)
+                            }}>dalete</p>
+                          </div>
+                        </div>
                       </div>
-                      <p>{item.sale_price * item.quantity} som</p>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-red-500"
-                      >
-                        Ochirish
-                      </button>
-                    </div>
-                  ))
-                )}
-              </div>
-              <div className="p-4 w-80 h-52 rounded-2xl border border-slate-300">
-                <div className="rounded-lg bg-slate-100 p-1 mb-5">
-                  <button className="w-[50%] cursor-pointer rounded-lg hover:bg-white p-2">
-                    Hoziroq Tolash
-                  </button>
-                  <button className="w-[50%] cursor-pointer rounded-lg hover:bg-white p-2">
-                    Muddatli Tolov
-                  </button>
+                    );
+                  })}
                 </div>
-                <div className="flex items-center justify-between mb-5 border-b-2 pb-5 border-slate-200">
-                  <p className="opacity-50">Maxsulot narxi</p>
-                  <p>
-                    {cart.reduce((total, item) => total + item.sale_price * item.quantity, 0)}{" "}
-                    som
-                  </p>
-                </div>
-                <div className="flex items-center font-bold text-xl justify-between">
-                  <p className="">Umumiy narx</p>
-                  <p>
-                    {cart.reduce((total, item) => total + item.sale_price * item.quantity, 0)}{" "}
-                    som
-                  </p>
+                <div className="border h-48 border-slate-400 rounded-xl p-4 w-80">
+                  <div className="bg-slate-200 rounded-xl p-1 flex gap-2">
+                    <button className="w-full cursor-pointer bg-white rounded-xl">
+                      Hoziroq Tanlash
+                    </button>
+                    <button className="w-full cursor-pointer  rounded-xl">
+                      Muddatli Tolov
+                    </button>
+                  </div>
+                  <div className="flex my-6 justify-between items-center ">
+                    <p>Maxsulot Narxi</p>
+                    <p>{pricee} som </p>
+                  </div>
+                  <div className="flex font-bold text-xl justify-between items-center ">
+                    <p>Jami:</p>
+                    <p>{(pricee).toLocaleString('ru')} som </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <>
+                <p className="mx-auto flex justify-center text-6xl">savatcha bo‘sh</p>
+              </>
+            )}
           </div>
         </div>
       )}

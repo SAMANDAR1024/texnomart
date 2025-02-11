@@ -1,41 +1,17 @@
+import { create } from 'zustand'
 
-import { create } from "zustand";
 
-const useMyStore = create((set) => ({
-  cart: [], 
-  addToCart: (item) =>
-    set((state) => {
-      const isExist = state.cart.some((product) => product.id === item.id);
-      if (!isExist) {
-        return { cart: [...state.cart, { ...item, quantity: 1 }] };
-      } else {
-        return {
-          cart: state.cart.map((product) =>
-            product.id === item.id
-              ? { ...product, quantity: product.quantity + 1 }
-              : product
-          ),
-        };
-      }
-    }),
-  removeFromCart: (id) =>
-    set((state) => ({
-      cart: state.cart.filter((product) => product.id !== id),
-    })),
-  increaseQuantity: (id) =>
-    set((state) => ({
-      cart: state.cart.map((product) =>
-        product.id === id ? { ...product, quantity: product.quantity + 1 } : product
-      ),
-    })),
-  decreaseQuantity: (id) =>
-    set((state) => ({
-      cart: state.cart.map((product) =>
-        product.id === id && product.quantity > 1
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      ),
-    })),
-}));
+
+const smthStore = ()=>({
+        savatcha:[{
+          soni: 1,
+          sale_price:195845,
+          image:'https://minapi.beemarket.uz/prod-media/productImages/1718103801t6ZQkZnGlQem.webp',
+          name:'IPhone 16 pro max'
+        }],
+        like:[]
+        
+})
+const useMyStore  = create(smthStore)
 
 export default useMyStore;
