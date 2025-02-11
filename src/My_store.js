@@ -1,23 +1,8 @@
-// import { create } from "zustand";
 
-// const useMyStore = create((set) => ({
-//   inputValue: "",
-//   students: [{ name: "Samandar", id: 1, count: 1 }],
-//   cart: [], 
-
-//   setInputValue: (value) => set({ inputValue: value }),
-//   setStudents: (newStudents) => set({ students: newStudents }),
-  
-//   addToCart: (product) => set((state) => ({ cart: [...state.cart, product] })), 
-// }));
-
-
-
-// export default useMyStore;
 import { create } from "zustand";
 
 const useMyStore = create((set) => ({
-  cart: [], // Savatdagi mahsulotlar
+  cart: [], 
   addToCart: (item) =>
     set((state) => {
       const isExist = state.cart.some((product) => product.id === item.id);
