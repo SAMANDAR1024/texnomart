@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import SavatKorzina from "../../assets/Savat";
 import axios from "axios";
 import LikeCard from "./LikeCard";
-import useMyStore from "../../My_store"; 
+import useMyStore from "../../My_store";
 
 function CardsTitle() {
   const [cards, setCards] = useState([]);
-  const addToCart = useMyStore((state) => state.addToCart); 
+  const addToCart = useMyStore((state) => state.addToCart);
 
   useEffect(() => {
     axios(
       "https://gw.texnomart.uz/api/web/v1/home/special-products?type=hit_products"
     ).then((res) => {
       const data = res.data.data.data;
-      setCards(data.slice(0, 5)); 
+      setCards(data);
     });
   }, []);
 
@@ -22,9 +22,9 @@ function CardsTitle() {
       {cards.map((item, ind) => {
         return (
           <div key={ind}>
-            <div className="w-64 h-[450px] relative p-6 cursor-pointer bg-white hover:shadow-lg rounded-2xl">
+            <div className="w-64 h-[450px] relative mb-5 p-6 cursor-pointer bg-white hover:shadow-lg rounded-2xl">
               <button className="absolute right-3 top-1">
-                <LikeCard item={item}/>
+                <LikeCard item={item} />
               </button>
               <img className="w-60" src={item.image} alt="" />
               <h2 className="my-2 cursor-pointer">{item.name}</h2>
@@ -38,9 +38,11 @@ function CardsTitle() {
                 </p>
                 <div
                   className="border-2 cursor-pointer border-amber-500 p-1 rounded-xl"
-                  onClick={() => addToCart(item)} 
+                  onClick={() => addToCart(item)}
                 >
-                  <SavatKorzina />
+                  <button>
+                    <SavatKorzina />
+                  </button>
                 </div>
               </div>
             </div>
