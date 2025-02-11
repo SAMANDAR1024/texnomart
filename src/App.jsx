@@ -11,7 +11,7 @@ function App() {
 
      
       <Routes>
-        <Route path="/cart" element={<IchkiCard />} />
+        <Route path="/cart/:id" element={<IchkiCard />} />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </>

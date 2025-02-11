@@ -103,7 +103,7 @@ const handleDel= (id)=>{
                               +
                             </button>
                           </div>
-                          <p>{item.sale_price}</p>
+                          <p>{(item.sale_price).toLocaleString("ru")}</p>
                           <div className="text-red-500">
                             <p onClick={()=>{
                               handleDel(item.id)
@@ -125,7 +125,7 @@ const handleDel= (id)=>{
                   </div>
                   <div className="flex my-6 justify-between items-center ">
                     <p>Maxsulot Narxi</p>
-                    <p>{pricee} som </p>
+                    <p>{(pricee).toLocaleString("ru")} som </p>
                   </div>
                   <div className="flex font-bold text-xl justify-between items-center ">
                     <p>Jami:</p>
