@@ -3,6 +3,7 @@ import Cards from "./Cards/Cards";
 import MainHome from "./Maiin/MainHome";
 import NavbarHome from "./Navbar/Home";
 import IchkiCard from "./Cards/CardsTitle/IchkiCard";
+import CatalogPage from "./Navbar/BottomHome/CatalogPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/cart/:id" element={<IchkiCard />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/katalog/:slug" element={<CatalogPage />} />
       </Routes>
     </>
   );

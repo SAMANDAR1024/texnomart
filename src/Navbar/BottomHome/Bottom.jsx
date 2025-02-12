@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import olov from "../../assets/olov.svg";
+import { Link } from "react-router";
 function NavbarBottom() {
   const [navbarText, setNavbarText] = useState([]);
   useEffect(() => {
@@ -19,9 +20,11 @@ function NavbarBottom() {
         </div>
         {navbarText.map((item, ind) => {
           return (
-            <div key={ind}>
-              <p className="cursor-pointer hover:opacity-60">{item.title}</p>
-            </div>
+            <Link to={`/katalog/${item.slug}`}>
+              <div key={ind}>
+                <p className="cursor-pointer hover:opacity-60">{item.title}</p>
+              </div>
+            </Link>
           );
         })}
       </div>
