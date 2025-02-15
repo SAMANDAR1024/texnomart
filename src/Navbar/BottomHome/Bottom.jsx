@@ -20,8 +20,8 @@ function NavbarBottom() {
         </div>
         {navbarText.map((item, ind) => {
           return (
-            <Link to={`/katalog/${item.slug}`}>
-              <div key={ind}>
+            <Link key={ind} to={`/katalog/${item.slug}`}>
+              <div>
                 <p className="cursor-pointer hover:opacity-60">{item.title}</p>
               </div>
             </Link>

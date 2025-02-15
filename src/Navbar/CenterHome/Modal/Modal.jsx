@@ -58,7 +58,7 @@ const handleDel= (id)=>{
     });
   };
   const pricee = savatcha.reduce((avv,hoz)=>avv+hoz.sale_price*hoz.soni,0)
-  console.log(savatcha);
+  // console.log(savatcha);
   
   return (
     <div className="relative">

@@ -1,18 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import Aksesuars from "./Aksesuars";
 
 function IchkiCard() {
   const [card, setCard] = useState(null);
-  const { id } = useParams();
+  const params = useParams();
   useEffect(() => {
+    setCard()
     axios
-      .get("https://gw.texnomart.uz/api/web/v1/product/detail?id=" + id)
+      .get("https://gw.texnomart.uz/api/web/v1/product/detail?id=" + params.id)
       .then((res) => {
         setCard(res.data.data.data);
-        console.log(res.data.data.data);
+        // console.log(res.data.data.data);
       });
-  }, []);
+  }, [params.id]);
 
   if (!card) {
     return (
@@ -91,6 +93,9 @@ function IchkiCard() {
            </div>
         </div>
       </div>
+
+
+      {card ? <Aksesuars ProductId={params.id}/>: <></> }
     </div>
   );
 }

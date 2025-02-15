@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import Produkt from "../../Cards/CardsTitle/Produkt";
 
 
 function CatalogPage() {
@@ -27,12 +28,7 @@ function CatalogPage() {
       <div className="grid grid-cols-4 mx-auto px-16 my-10  container gap-4">
         {catigor.map((item) => {
           return (
-            <div className=" p-2 rounded-2xl hover:shadow-2xl mx-auto w-72">
-              <img className="mx-auto w-52 h-52" width={150} src={item.image} alt="" />
-              <p className="mb-10">{item.name}</p>
-              <button className="bg-slate-200 rounded-2xl px-2 text-sm">{item.axiom_monthly_price}</button>
-              <p className="my-8 text-2xl font-bold">{(item.sale_price).toLocaleString('ru')} So'm</p>
-            </div>
+<Produkt item={item}/>
           )
         })}
       </div>
