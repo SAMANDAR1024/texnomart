@@ -11,8 +11,7 @@ function IchkiCard() {
     axios
       .get("https://gw.texnomart.uz/api/web/v1/product/detail?id=" + params.id)
       .then((res) => {
-        setCard(res.data.data.data);
-        // console.log(res.data.data.data);
+        setCard(res.data.data.data);  
       });
   }, [params.id]);
 

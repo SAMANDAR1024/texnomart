@@ -9,8 +9,9 @@ const smthStore = ()=>({
           image:'https://minapi.beemarket.uz/prod-media/productImages/1718103801t6ZQkZnGlQem.webp',
           name:'IPhone 16 pro max'
         }],
+        currentSort: "Price",
         like:[]
-        
+        // Narxi Boyicha
 })
 const useMyStore  = create(smthStore)
 

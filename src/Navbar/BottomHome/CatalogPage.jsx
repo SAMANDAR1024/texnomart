@@ -4,23 +4,24 @@ import { useParams } from "react-router";
 import Produkt from "../../Cards/CardsTitle/Produkt";
 import Sort from "./Sort";
 import { Pagination } from "antd";
+import useMyStore from "../../My_store";
 
 function CatalogPage() {
   const params = useParams();
   const [catigor, setCatigor] = useState();
   const [catigor1, setCatigor1] = useState(1);
-  const [currentSort, setCurrentSort] = useState("Narxi Boyicha");
+ 
+  const state = useMyStore();
   useEffect(() => {
     setCatigor();
     axios
       .get(
-        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${params.slug}&sort=-order_count&page=${catigor1}`
+        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${params.slug}&sort=${state.currentSort}&page=${catigor1}`
       )
       .then((res) => {
-        console.log(res.data.data);
         setCatigor(res.data.data);
       });
-  }, [params.slug, catigor1]);
+  }, [params.slug, catigor1, state.currentSort]);
 
   if (!catigor) {
     return (
@@ -29,11 +30,16 @@ function CatalogPage() {
   }
 
   const arr = [
-    { name: "Narxi Boyicha" },
-    { name: "Reyting Boyicha" },
-    { name: "Yangi Kelganlar Boyicha" },
-    { name: "Ommabopligi Boyicha" },
+    { name: "Price", title: "Narxi Boyicha " },
+    { name: "Rating", title: "Retingi Boyicha " },
+    { name: "New", title: "Yangi kelganlar Boyicha " },
+    { name: "Order_count", title: "Ommabopligi Boyicha " },
   ];
+  function onChange(name) {
+    useMyStore.setState({
+      currentSort: name,
+    });
+  }
   return (
     <>
       <div className="flex mx-auto px-16 my-10  container gap-10">
@@ -50,28 +56,13 @@ function CatalogPage() {
                 return (
                   <div key={ind}>
                     <Sort
-                      setCurrentSort={setCurrentSort}
-                      currentSort={currentSort}
+                      setCurrentSort={onChange}
                       name={item.name}
+                      title={item.title}
                     />
                   </div>
                 );
               })}
-              {/* <Sort
-                setCurrentSort={setCurrentSort}
-                currentSort={currentSort}
-                name={"Reyting Boyicha"}
-              />
-              <Sort
-                setCurrentSort={setCurrentSort}
-                currentSort={currentSort}
-                name={"Yangi Kelganlar Boyicha"}
-              />
-              <Sort
-                setCurrentSort={setCurrentSort}
-                currentSort={currentSort}
-                name={"Ommabopligi Boyicha"}
-              /> */}
             </div>
 
             <div>icon icon</div>
@@ -86,7 +77,7 @@ function CatalogPage() {
             })}
           </div>
           <Pagination
-          className="flex justify-center"
+            className="flex justify-center"
             pageSize={catigor.pagination.page_size}
             defaultCurrent={catigor1}
             total={catigor.pagination.total_count}
