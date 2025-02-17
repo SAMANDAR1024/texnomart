@@ -79,7 +79,7 @@ function Produkt({item, ind}) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default Produkt;
