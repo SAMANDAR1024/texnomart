@@ -3,25 +3,32 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Produkt from "../../Cards/CardsTitle/Produkt";
 import Sort from "./Sort";
-import { Pagination } from "antd";
+import { Collapse, Pagination } from "antd";
 import useMyStore from "../../My_store";
+import SideLeft from "./SideLeft";
 
 function CatalogPage() {
   const params = useParams();
   const [catigor, setCatigor] = useState();
   const [catigor1, setCatigor1] = useState(1);
- 
+
   const state = useMyStore();
+const {tartibi}= state
+
   useEffect(() => {
     setCatigor();
     axios
       .get(
-        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${params.slug}&sort=${state.currentSort}&page=${catigor1}`
+        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${
+          params.slug
+        }&sort=${tartibi ? "-" : ""}${state.currentSort}&page=${catigor1}`
       )
       .then((res) => {
         setCatigor(res.data.data);
+        console.log(res.data.data);
+        
       });
-  }, [params.slug, catigor1, state.currentSort]);
+  }, [params.slug, catigor1, state.currentSort, tartibi]);
 
   if (!catigor) {
     return (
@@ -40,14 +47,15 @@ function CatalogPage() {
       currentSort: name,
     });
   }
+//   console.log(setCatigor);
+  
   return (
     <>
       <div className="flex mx-auto px-16 my-10  container gap-10">
         <div className="w-[20%]">
-          <div className="flex  justify-between">
-            <p>Narxi</p>
-            <p>▲</p>
-          </div>
+          <SideLeft filter={catigor.filter}/>
+         
+          
         </div>
         <div>
           <div className=" flex mb-10 justify-between items-center">

@@ -10,7 +10,8 @@ const smthStore = ()=>({
           name:'IPhone 16 pro max'
         }],
         currentSort: "Price",
-        like:[]
+        like:[],
+        tartibi:false
         // Narxi Boyicha
 })
 const useMyStore  = create(smthStore)

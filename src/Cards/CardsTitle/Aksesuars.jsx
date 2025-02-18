@@ -18,9 +18,7 @@ function Aksesuars({ ProductId }) {
   }, []);
 
   if (aksesuar.length === 0) {
-    return <div>
-        Loading...
-    </div>
+    return <div>Loading...</div>;
   }
   return (
     <div>
