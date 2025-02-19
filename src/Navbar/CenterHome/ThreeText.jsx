@@ -1,18 +1,16 @@
-import UserIcon from "../../assets/User";
+// import { Button } from "antd";
 import useMyStore from "../../My_store";
 import Like from "./Likes/Likes";
 // import useMyStore from "../../My_store";
 import Modal from "./Modal/Modal";
+import LoginModal from "./Modal/LoginModal";
 
 function ThreeText() {
   const { savatcha } = useMyStore();
   // const cartLength = useMyStore((state) => state.cart.length);
   return (
     <div className="flex cursor-pointer items-center gap-15">
-      <div className="flex flex-col items-center">
-        <UserIcon />
-        <p className="text-xl">Kirish</p>
-      </div>
+      <LoginModal />
       <Like />
       <div className="relative flex flex-col items-center">
         <Modal />
