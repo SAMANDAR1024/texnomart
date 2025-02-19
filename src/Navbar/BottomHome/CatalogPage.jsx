@@ -37,10 +37,10 @@ const {tartibi}= state
   }
 
   const arr = [
-    { name: "Price", title: "Narxi Boyicha " },
-    { name: "Rating", title: "Retingi Boyicha " },
-    { name: "New", title: "Yangi kelganlar Boyicha " },
-    { name: "Order_count", title: "Ommabopligi Boyicha " },
+    { name: "price", title: "Narxi Boyicha " },
+    { name: "rating", title: "Retingi Boyicha " },
+    { name: "new", title: "Yangi kelganlar Boyicha " },
+    { name: "order_count", title: "Ommabopligi Boyicha " },
   ];
   function onChange(name) {
     useMyStore.setState({

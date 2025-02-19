@@ -1,7 +1,9 @@
-import { Checkbox, Collapse } from "antd";
-import React, { Children } from "react";
+import { Button, Checkbox, Collapse } from "antd";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import React, { Children, useState } from "react";
 
 function SideLeft({ filter }) {
+  const [qisqarish, setQistarish] = useState(false);
   console.log(filter);
 
   return (
@@ -19,20 +21,37 @@ function SideLeft({ filter }) {
               </span>
             ),
             children: (
-
               <div>
-                {item.values.map((i) => {
-                
-                  return (
-                    <div key={i.id} className="flex items-center gap-2">
-                       <div>
-                       <Checkbox className="font-bold">{i.value}</Checkbox>
-                       </div>
-                      {/* <p className="font-bold">{i.value}</p> */}
-                      <p className="text-gray-400">{i.count}</p>
-                    </div>
-                  );
-                })}
+                {qisqarish === false && item.values.length > 10
+                  ? item.values.slice(0, 10).map((i) => {
+                      return (
+                        <div key={i.id} className="flex items-center gap-2">
+                          <div className="my-1">
+                            <Checkbox className="text-xl ">{i.value}</Checkbox>
+                          </div>
+                          <p className="text-gray-400">{i.count}</p>
+                        </div>
+                      );
+                    })
+                  : item.values.map((i) => {
+                      return (
+                        <div key={i.id} className="flex items-center gap-2">
+                          <div className="my-1">
+                            <Checkbox className="text-xl ">{i.value}</Checkbox>
+                          </div>
+                          <p className="text-gray-400">{i.count}</p>
+                        </div>
+                      );
+                    })}
+                <Button
+                  onClick={() => {
+                    setQistarish(!qisqarish);
+                  }}
+                >
+                  {qisqarish ? <UpOutlined /> :  <DownOutlined />}
+                  {qisqarish ? "Yopish" :"Koproq Korish"}
+
+                </Button>
               </div>
             ),
           };
